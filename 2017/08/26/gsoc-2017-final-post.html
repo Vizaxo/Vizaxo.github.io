@@ -10,7 +10,7 @@
   <meta name="description" content="I&amp;#8217;ve spent the last ~3 months working on my GSoC project for Terasology. It&amp;#8217;s been a fantastic experience, I&amp;#8217;ve learned a lot, and I think ...">
 
   <link rel="stylesheet" href="/assets/main.css">
-  <link rel="canonical" href="http://localhost:4000/2017/08/26/gsoc-2017-final-post.html">
+  <link rel="canonical" href="https://vizaxo.github.io/2017/08/26/gsoc-2017-final-post.html">
   <link rel="alternate" type="application/rss+xml" title="Vizaxo" href="/feed.xml">
   
   
@@ -50,6 +50,9 @@
             
             
           
+            
+            
+          
         </div>
       </nav>
     
@@ -74,41 +77,41 @@
   <div class="post-content" itemprop="articleBody">
     <p>I&#8217;ve spent the last ~3 months working on my <a href="https://developers.google.com/open-source/gsoc/">GSoC</a> project for <a href="http://terasology.org/">Terasology</a>. It&#8217;s been a fantastic experience, I&#8217;ve learned a lot, and I think I&#8217;ve made some valuable contributions that will make further development on the game easier.</p>
 <p>My mentors were a huge help with the project, coming up with ideas, helping with problems, and reviewing all of the code I wrote. They helped me learn a lot about the project, and also about coding in general and working with other people on a big project.</p>
-<p>I recorded my progress throughout the project in several places. The code (along with some discussion) is presented in GitHub PRs that are linked throughout the rest of this article. I also made an post introducing the project on my blog <a href="https://vizaxo.github.io/2017/06/28/google-summer-of-code-introduction.html">here</a> [todo: make Jekyll internal link], and documented my progress in a series of forum posts in <a href="http://forum.terasology.org/threads/new-conceptual-layer-sector-plus-musings-on-multi-world-node.1420/#post-15124">this</a> thread.</p>
+<p>I recorded my progress throughout the project in several places. The code (along with some discussion) is presented in GitHub PRs that are linked throughout the rest of this article. I also made a post introducing the project on my blog [[/2017/06/28/google-summer-of-code-introduction.html/2017/06/28/google-summer-of-code-introduction.html][here] and documented my progress in a series of forum posts in <a href="http://forum.terasology.org/threads/new-conceptual-layer-sector-plus-musings-on-multi-world-node.1420/#post-15124">this</a> thread.</p>
 <h2>Pools</h2>
 <p>The first part of this project was implementing pools. This is an extension of the game&#8217;s entity system, allowing entities to be stored in different locations, in preparation for splitting the game into multiple worlds, or splitting servers across multiple machines.</p>
 <p>It also lays the groundwork for the next part of the project, sectors, by allowing sector-scope entities to be stored in their own pool.</p>
 <p>My original proposal focused more on this, allowing the pool for sector-scope entities to dynamically split and change depending on where the entities are in the world and which other entities they interact with, but we decided that it wouldn&#8217;t have a big effect at the moment, so the effort is better spent in different places.</p>
 <p>The terminology between sectors/pools can get confusing, because the main reason for implementing pools is to allow multiple sector pools, so they are often discussed together under the name &#8216;sectors&#8217;.</p>
-<p>PRs:</p>
+<h3>PRs:</h3>
 <ul>
-  <li>https://github.com/MovingBlocks/Terasology/pull/2975</li>
-  <li>https://github.com/Vizaxo/Terasology/pull/1</li>
-  <li>https://github.com/Vizaxo/Terasology/pull/2</li>
-  <li>https://github.com/Vizaxo/Terasology/pull/3</li>
-  <li>https://github.com/Vizaxo/Terasology/pull/4</li>
+  <li><a href="https://github.com/MovingBlocks/Terasology/pull/2975">Initial pools PR</a></li>
+  <li><a href="https://github.com/Vizaxo/Terasology/pull/1">Rename cache to pool</a></li>
+  <li><a href="https://github.com/Vizaxo/Terasology/pull/2">Bug fixes and cleanup</a></li>
+  <li><a href="https://github.com/Vizaxo/Terasology/pull/3">More fixes</a></li>
+  <li><a href="https://github.com/Vizaxo/Terasology/pull/4">More fixes 2</a></li>
 </ul>
 <p>Discussion issue:</p>
 <ul>
-  <li>https://github.com/MovingBlocks/Terasology/issues/2976</li>
+  <li><a href="https://github.com/MovingBlocks/Terasology/issues/2976">Sectors and pools implementation/API</a></li>
 </ul>
 <h2>Sectors</h2>
 <p>The second part was based around sector-scope entities. This allows certain entities to undergo simulation, and to be able to make changes in the game world around that simulation. The idea of this is to reduce the rate at which entities need to simulate (or even stop the simulation completely) when the chunks they are associated with aren&#8217;t loaded, allowing more entities to be loaded without affecting performance.</p>
-<p><b>TODO: wiki link</b></p>
+<p>**TODO: wiki link*</p>
 <p>PRs:</p>
 <ul>
-  <li>https://github.com/Vizaxo/Terasology/pull/5</li>
-  <li>https://github.com/MovingBlocks/Terasology/pull/3022</li>
-  <li>https://github.com/MovingBlocks/Terasology/pull/3037</li>
-  <li>https://github.com/MovingBlocks/Terasology/pull/3041</li>
+  <li><a href="https://github.com/Vizaxo/Terasology/pull/5">Sector simulation</a></li>
+  <li><a href="https://github.com/MovingBlocks/Terasology/pull/3022">Add SectorRegionComponent to allow sector entities to span multiple chunks</a></li>
+  <li><a href="https://github.com/MovingBlocks/Terasology/pull/3037">Convert alwaysRelevant to entity scope</a></li>
+  <li><a href="https://github.com/MovingBlocks/Terasology/pull/3041">Allow sector entities to simulate at a different rate when loaded</a></li>
 </ul>
 <p>PR merging pools content, and the first sector simulation PR:</p>
 <ul>
-  <li>https://github.com/MovingBlocks/Terasology/pull/3009</li>
+  <li><a href="https://github.com/MovingBlocks/Terasology/pull/3009">Sectors/pools v2.0.0 branch</a></li>
 </ul>
 <p>I&#8217;ve also updated the <a href="https://github.com/terasology/dynamiccities">Dynamic Cities</a> module, which was created for last year&#8217;s GSoC, to use sector simulation:</p>
 <ul>
-  <li>https://github.com/Terasology/DynamicCities/pull/30</li>
+  <li><a href="https://github.com/Terasology/DynamicCities/pull/30">Update settlements to use sector-scope simulation</a></li>
 </ul>
 <h2>Zones</h2>
 <p>The final part of the project was zones (initially called surfaces). Zones allow the world to be split into different areas for world generation, and allow those different areas to have their own section on the world preview. For example, there could be a zone for the surface that controls the height and material of the ground, and a zone for a layer of caves underground. Each of these could be displayed separately on the map shown before a game is created, so altering the world properties will show the effects on every part of the world (previously there could only be one preview map displayed, usually showing the world&#8217;s surface).</p>
@@ -119,7 +122,7 @@
   <li>https://github.com/MovingBlocks/Terasology/pull/3079</li>
 </ul>
 <p>I&#8217;ve updated the <a href="https://github.com/terasology/inferno">Inferno</a> module by converting its generation (a hell-like region filled with lava and fire) to be a zone, and turned it into a world plugin, so that it can be added to any world.</p>
-<p><b>TODO: PR link</b></p>
+<p>**TODO: PR link*</p>
 
   </div>
 
