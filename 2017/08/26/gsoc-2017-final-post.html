@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>GSoC 2017 Wrap-up</title>
-  <meta name="description" content="I&amp;#8217;ve spent the last ~3 months working on my GSoC project for Terasology. It&amp;#8217;s been a fantastic experience, I&amp;#8217;ve learned a lot, and I think ...">
+  <meta name="description" content="I&amp;#8217;ve spent the last ~3 months working on my GSoC project for Terasology. I&amp;#8217;ve recorded my progress on the project in several places: the code (al...">
 
   <link rel="stylesheet" href="/assets/main.css">
   <link rel="canonical" href="https://vizaxo.github.io/2017/08/26/gsoc-2017-final-post.html">
@@ -75,15 +75,17 @@
   </header>
 
   <div class="post-content" itemprop="articleBody">
-    <p>I&#8217;ve spent the last ~3 months working on my <a href="https://developers.google.com/open-source/gsoc/">GSoC</a> project for <a href="http://terasology.org/">Terasology</a>. It&#8217;s been a fantastic experience, I&#8217;ve learned a lot, and I think I&#8217;ve made some valuable contributions that will make further development on the game easier.</p>
-<p>My mentors were a huge help with the project, coming up with ideas, helping with problems, and reviewing all of the code I wrote. They helped me learn a lot about the project, and also about coding in general and working with other people on a big project.</p>
-<p>I recorded my progress throughout the project in several places. The code (along with some discussion) is presented in GitHub PRs that are linked throughout the rest of this article. I also made a post introducing the project on my blog [[/2017/06/28/google-summer-of-code-introduction.html/2017/06/28/google-summer-of-code-introduction.html][here] and documented my progress in a series of forum posts in <a href="http://forum.terasology.org/threads/new-conceptual-layer-sector-plus-musings-on-multi-world-node.1420/#post-15124">this</a> thread.</p>
-<h2>Pools</h2>
-<p>The first part of this project was implementing pools. This is an extension of the game&#8217;s entity system, allowing entities to be stored in different locations, in preparation for splitting the game into multiple worlds, or splitting servers across multiple machines.</p>
-<p>It also lays the groundwork for the next part of the project, sectors, by allowing sector-scope entities to be stored in their own pool.</p>
-<p>My original proposal focused more on this, allowing the pool for sector-scope entities to dynamically split and change depending on where the entities are in the world and which other entities they interact with, but we decided that it wouldn&#8217;t have a big effect at the moment, so the effort is better spent in different places.</p>
+    <p>I&#8217;ve spent the last ~3 months working on my <a href="https://developers.google.com/open-source/gsoc/">GSoC</a> project for <a href="http://terasology.org/">Terasology</a>. I&#8217;ve recorded my progress on the project in several places: the code (along with some discussion) is presented in GitHub PRs that are linked throughout the rest of this article; there&#8217;s an introduction to my project in a previous blog post; and I documented my progress over the summer in a series of forum posts.</p>
+<ul>
+  <li><a href="/2017/06/28/google-summer-of-code-introduction.html">Introductory blog post</a></li>
+  <li><a href="http://forum.terasology.org/threads/new-conceptual-layer-sector-plus-musings-on-multi-world-node.1420/#post-15124">Progress forum posts</a></li>
+</ul>
+<h2>Project work</h2>
+<h3>Pools</h3>
+<p>The first part of this project was implementing pools. These are an extension of the game&#8217;s entity-component system which allow entities to be stored in multiple locations, in preparation for splitting the game into multiple worlds, or splitting servers across multiple machines.</p>
+<p>They also lay the groundwork for the next part of the project, sectors, by allowing sector-scope entities to be stored in their own pool.</p>
 <p>The terminology between sectors/pools can get confusing, because the main reason for implementing pools is to allow multiple sector pools, so they are often discussed together under the name &#8216;sectors&#8217;.</p>
-<h3>PRs:</h3>
+<h4>PRs:</h4>
 <ul>
   <li><a href="https://github.com/MovingBlocks/Terasology/pull/2975">Initial pools PR</a></li>
   <li><a href="https://github.com/Vizaxo/Terasology/pull/1">Rename cache to pool</a></li>
@@ -91,38 +93,62 @@
   <li><a href="https://github.com/Vizaxo/Terasology/pull/3">More fixes</a></li>
   <li><a href="https://github.com/Vizaxo/Terasology/pull/4">More fixes 2</a></li>
 </ul>
-<p>Discussion issue:</p>
+<h4>Discussion issue:</h4>
 <ul>
   <li><a href="https://github.com/MovingBlocks/Terasology/issues/2976">Sectors and pools implementation/API</a></li>
 </ul>
-<h2>Sectors</h2>
-<p>The second part was based around sector-scope entities. This allows certain entities to undergo simulation, and to be able to make changes in the game world around that simulation. The idea of this is to reduce the rate at which entities need to simulate (or even stop the simulation completely) when the chunks they are associated with aren&#8217;t loaded, allowing more entities to be loaded without affecting performance.</p>
-<p>**TODO: wiki link*</p>
-<p>PRs:</p>
+<h3>Sector simulation</h3>
+<p>The second part of this project was sector-scope simulation, allowing entities to undergo simulation that is based on the time between simulation events rather than the number of events that are sent. This allows the simulation rate to be decreased, especially when the chunks that the entity affects aren&#8217;t loaded, to improve performance scaling with lots of entities.</p>
+<h4>prs:</h4>
 <ul>
   <li><a href="https://github.com/Vizaxo/Terasology/pull/5">Sector simulation</a></li>
+  <li><a href="https://github.com/MovingBlocks/Terasology/pull/3009">PR that merged pools work, and the first sector simulation PR</a></li>
   <li><a href="https://github.com/MovingBlocks/Terasology/pull/3022">Add SectorRegionComponent to allow sector entities to span multiple chunks</a></li>
   <li><a href="https://github.com/MovingBlocks/Terasology/pull/3037">Convert alwaysRelevant to entity scope</a></li>
   <li><a href="https://github.com/MovingBlocks/Terasology/pull/3041">Allow sector entities to simulate at a different rate when loaded</a></li>
 </ul>
-<p>PR merging pools content, and the first sector simulation PR:</p>
+<h3>Zones</h3>
+<p>The final part of the project was zones (initially called surfaces). Zones allow the world to be split into different areas for world generation, and allow those different areas to have their own section on the world preview.</p>
+<p>The most useful type of zone at the moment is the layered zone (or just layer). Layers are a special type of zone that lie horizontally in the world, and don&#8217;t overlap with each other. They are used to split up each of the layers in the world into separate areas, which allows each one to be provided by its own module (increasing the modularity and customisation of the game), and will open up further options in the future (such as splitting the sectors in the world according to the layers that exist).</p>
+<p>Zones also provide a way of improving the world preview system, which allows the player to see what a world will look like before loading the world. Previously there was only one preview screen for the whole world, so you couldn&#8217;t show multiple separate parts of the world. Each zone has the option to act as a preview screen, so each part of the world (e.g. a layer of deep lava lakes, a cave layer, the surface of the world, and some floating islands) can have its own display screen.</p>
 <ul>
-  <li><a href="https://github.com/MovingBlocks/Terasology/pull/3009">Sectors/pools v2.0.0 branch</a></li>
+  <li><a href="https://github.com/Terasology/TutorialWorldGeneration/wiki/Zones">More information and tutorials on the zones wiki page</a></li>
 </ul>
-<p>I&#8217;ve also updated the <a href="https://github.com/terasology/dynamiccities">Dynamic Cities</a> module, which was created for last year&#8217;s GSoC, to use sector simulation:</p>
+<h4>PRs:</h4>
 <ul>
-  <li><a href="https://github.com/Terasology/DynamicCities/pull/30">Update settlements to use sector-scope simulation</a></li>
+  <li><a href="https://github.com/MovingBlocks/Terasology/pull/3054">Zones</a></li>
+  <li><a href="https://github.com/MovingBlocks/Terasology/pull/3079">Zones 2</a></li>
 </ul>
-<h2>Zones</h2>
-<p>The final part of the project was zones (initially called surfaces). Zones allow the world to be split into different areas for world generation, and allow those different areas to have their own section on the world preview. For example, there could be a zone for the surface that controls the height and material of the ground, and a zone for a layer of caves underground. Each of these could be displayed separately on the map shown before a game is created, so altering the world properties will show the effects on every part of the world (previously there could only be one preview map displayed, usually showing the world&#8217;s surface).</p>
-<p><a href="https://github.com/Terasology/TutorialWorldGeneration/wiki/Zones">Zones wiki page</a></p>
-<p>PRs:</p>
+<h3>Module updates</h3>
+<p>To showcase the changes listed above, I updated some of the existing Terasology modules to use these new features.</p>
+<h4>Dynamic Cities</h4>
+<p>The first module I updated was <a href="https://github.com/terasology/dynamiccities">Dynamic Cities</a>, which was created for last year&#8217;s GSoC. I updated the cities to use sector simulation, so the cities grow at a predictable rate even in games with different framerates, and to allow the simulation to be performed at a lower rate when the city is unloaded. This means that when no players are near the city, fewer updates need to be done, while still having the city grow at a consistent rate.</p>
 <ul>
-  <li>https://github.com/MovingBlocks/Terasology/pull/3054</li>
-  <li>https://github.com/MovingBlocks/Terasology/pull/3079</li>
+  <li><a href="https://github.com/Terasology/DynamicCities/pull/30">Update Dynamic Cities to use sector-scope simulation</a></li>
 </ul>
-<p>I&#8217;ve updated the <a href="https://github.com/terasology/inferno">Inferno</a> module by converting its generation (a hell-like region filled with lava and fire) to be a zone, and turned it into a world plugin, so that it can be added to any world.</p>
-<p>**TODO: PR link*</p>
+<h4>Inferno</h4>
+<p><a href="https://github.com/terasology/inferno">Inferno</a> was the other module I changed. I updated its world generation to be a layered zone, and turned it into a world plugin. This means that it can be added as a layer to any world, instead of needing its own custom world generator.</p>
+<ul>
+  <li><a href="https://github.com/Terasology/Inferno/pull/4">Convert Inferno into a layer</a></li>
+</ul>
+<h2>Comparison to original proposal</h2>
+<p>My original proposal focused only on pools and sectors, and included more advanced features such as allowing sectors to dynamically split or merge depending on which entities were interacting with each other. However, it was decided that these features wouldn&#8217;t provide many advantages until multi-world games or multi-machine servers were being worked on, so they were not implemented as part of this project. Instead of these I added zones, which will have a more immediate impact than the features that were pushed back to a later time.</p>
+<h2>Future work</h2>
+<p>The features I have implemented during this project are already fit for use, and have been merged into the v2.0.0 staging branch ready for inclusion in the next major version of the game.</p>
+<p>However, there are still changes and improvements that can be made to the work I&#8217;ve done, and long-term projects that can build off this work:</p>
+<ul>
+  <li>Improve the ordering of layers, to allow blank space between them and to be able to specify a desired depth for the layer</li>
+  <li>Implement multiple sectors, and sector splitting/merging</li>
+  <li>Add non-overlapping, tiling, columnar zones (to allow each <a href="https://en.wikipedia.org/wiki/Natural_region">natural region</a> to be its own zone)</li>
+  <li>Convert existing world generators to use layers and zones</li>
+  <li>Add connectors between zones so they can interact or merge at the edges</li>
+  <li>Allow zone world plugins to be nested zones (so that zones can be added to a specific layer in the world)</li>
+  <li>Allow each game save to consist of multiple worlds</li>
+  <li>Allow game servers to be split across multiple physical machines</li>
+</ul>
+<h2>Conclusions</h2>
+<p>Overall, the project has been absolutely fantastic; I&#8217;ve learned a huge amount about contributing to an open source project with a large existing codebase, and about programming in general. I had a lot of fun doing the project, and I hope that my contributions are valuable and help developers and players of the game in the future.</p>
+<p>I want to say a huge thank you to my mentors: they have been extremely helpful, both guiding the project and helping me learn a huge amount of new skills along the way. I also want to thank Google for running the program, which allowed me to spend my summer working on a great open source project while learning far more than I could by coding alone.</p>
 
   </div>
 
