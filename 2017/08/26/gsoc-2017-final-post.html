@@ -127,9 +127,14 @@
   <li><a href="https://github.com/Terasology/DynamicCities/pull/30">Update Dynamic Cities to use sector-scope simulation</a></li>
 </ul>
 <h4>Inferno</h4>
-<p><a href="https://github.com/terasology/inferno">Inferno</a> was the other module I changed. I updated its world generation to be a layered zone, and turned it into a world plugin. This means that it can be added as a layer to any world, instead of needing its own custom world generator.</p>
+<p>I also updated <a href="https://github.com/terasology/inferno">Inferno</a>&#8217;s world generation to be a layered zone, and turned it into a world plugin. This means that it can be added as a layer to any world, instead of needing its own custom world generator.</p>
 <ul>
   <li><a href="https://github.com/Terasology/Inferno/pull/4">Convert Inferno into a layer</a></li>
+</ul>
+<h4>TutorialWorldGeneration</h4>
+<p>The final module update was adding an example generator to <a href="https://github.com/Terasology/TutorialWorldGeneration">TutorialWorldGeneration</a> which was based on layers and zones. This shows how the features can be used in a complete world generator, and how they can interact with each other, and with the normal world generation features.</p>
+<ul>
+  <li><a href="https://github.com/Terasology/TutorialWorldGeneration/pull/5">Add example layer/zone generator</a></li>
 </ul>
 <h2>Comparison to original proposal</h2>
 <p>My original proposal focused only on pools and sectors, and included more advanced features such as allowing sectors to dynamically split or merge depending on which entities were interacting with each other. However, it was decided that these features wouldn&#8217;t provide many advantages until multi-world games or multi-machine servers were being worked on, so they were not implemented as part of this project. Instead of these I added zones, which will have a more immediate impact than the features that were pushed back to a later time.</p>
@@ -138,6 +143,8 @@
 <p>However, there are still changes and improvements that can be made to the work I&#8217;ve done, and long-term projects that can build off this work:</p>
 <ul>
   <li>Improve the ordering of layers, to allow blank space between them and to be able to specify a desired depth for the layer</li>
+  <li>Fix bug where &#8220;Entity x doesn&#8217;t have an assigned pool&#8221; appears repeatedly when the game is saved</li>
+  <li>Fix bug with Dynamic Cities not properly reloading after being saved</li>
   <li>Implement multiple sectors, and sector splitting/merging</li>
   <li>Add non-overlapping, tiling, columnar zones (to allow each <a href="https://en.wikipedia.org/wiki/Natural_region">natural region</a> to be its own zone)</li>
   <li>Convert existing world generators to use layers and zones</li>

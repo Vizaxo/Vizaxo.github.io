@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="https://vizaxo.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://vizaxo.github.io/" rel="alternate" type="text/html" /><updated>2017-08-29T02:05:16+01:00</updated><id>https://vizaxo.github.io/</id><title type="html">Vizaxo</title><subtitle>My blog
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="https://vizaxo.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://vizaxo.github.io/" rel="alternate" type="text/html" /><updated>2017-08-29T14:10:59+01:00</updated><id>https://vizaxo.github.io/</id><title type="html">Vizaxo</title><subtitle>My blog
 </subtitle><entry><title type="html">GSoC 2017 Wrap-up</title><link href="https://vizaxo.github.io/2017/08/26/gsoc-2017-final-post.html" rel="alternate" type="text/html" title="GSoC 2017 Wrap-up" /><published>2017-08-26T00:00:00+01:00</published><updated>2017-08-26T00:00:00+01:00</updated><id>https://vizaxo.github.io/2017/08/26/gsoc-2017-final-post</id><content type="html" xml:base="https://vizaxo.github.io/2017/08/26/gsoc-2017-final-post.html">&lt;p&gt;I&amp;#8217;ve spent the last ~3 months working on my &lt;a href=&quot;https://developers.google.com/open-source/gsoc/&quot;&gt;GSoC&lt;/a&gt; project for &lt;a href=&quot;http://terasology.org/&quot;&gt;Terasology&lt;/a&gt;. I&amp;#8217;ve recorded my progress on the project in several places: the code (along with some discussion) is presented in GitHub PRs that are linked throughout the rest of this article; there&amp;#8217;s an introduction to my project in a previous blog post; and I documented my progress over the summer in a series of forum posts.&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;/2017/06/28/google-summer-of-code-introduction.html&quot;&gt;Introductory blog post&lt;/a&gt;&lt;/li&gt;
@@ -51,9 +51,14 @@
   &lt;li&gt;&lt;a href=&quot;https://github.com/Terasology/DynamicCities/pull/30&quot;&gt;Update Dynamic Cities to use sector-scope simulation&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h4&gt;Inferno&lt;/h4&gt;
-&lt;p&gt;&lt;a href=&quot;https://github.com/terasology/inferno&quot;&gt;Inferno&lt;/a&gt; was the other module I changed. I updated its world generation to be a layered zone, and turned it into a world plugin. This means that it can be added as a layer to any world, instead of needing its own custom world generator.&lt;/p&gt;
+&lt;p&gt;I also updated &lt;a href=&quot;https://github.com/terasology/inferno&quot;&gt;Inferno&lt;/a&gt;&amp;#8217;s world generation to be a layered zone, and turned it into a world plugin. This means that it can be added as a layer to any world, instead of needing its own custom world generator.&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;https://github.com/Terasology/Inferno/pull/4&quot;&gt;Convert Inferno into a layer&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;TutorialWorldGeneration&lt;/h4&gt;
+&lt;p&gt;The final module update was adding an example generator to &lt;a href=&quot;https://github.com/Terasology/TutorialWorldGeneration&quot;&gt;TutorialWorldGeneration&lt;/a&gt; which was based on layers and zones. This shows how the features can be used in a complete world generator, and how they can interact with each other, and with the normal world generation features.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/Terasology/TutorialWorldGeneration/pull/5&quot;&gt;Add example layer/zone generator&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2&gt;Comparison to original proposal&lt;/h2&gt;
 &lt;p&gt;My original proposal focused only on pools and sectors, and included more advanced features such as allowing sectors to dynamically split or merge depending on which entities were interacting with each other. However, it was decided that these features wouldn&amp;#8217;t provide many advantages until multi-world games or multi-machine servers were being worked on, so they were not implemented as part of this project. Instead of these I added zones, which will have a more immediate impact than the features that were pushed back to a later time.&lt;/p&gt;
@@ -62,6 +67,8 @@
 &lt;p&gt;However, there are still changes and improvements that can be made to the work I&amp;#8217;ve done, and long-term projects that can build off this work:&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;Improve the ordering of layers, to allow blank space between them and to be able to specify a desired depth for the layer&lt;/li&gt;
+  &lt;li&gt;Fix bug where &amp;#8220;Entity x doesn&amp;#8217;t have an assigned pool&amp;#8221; appears repeatedly when the game is saved&lt;/li&gt;
+  &lt;li&gt;Fix bug with Dynamic Cities not properly reloading after being saved&lt;/li&gt;
   &lt;li&gt;Implement multiple sectors, and sector splitting/merging&lt;/li&gt;
   &lt;li&gt;Add non-overlapping, tiling, columnar zones (to allow each &lt;a href=&quot;https://en.wikipedia.org/wiki/Natural_region&quot;&gt;natural region&lt;/a&gt; to be its own zone)&lt;/li&gt;
   &lt;li&gt;Convert existing world generators to use layers and zones&lt;/li&gt;
